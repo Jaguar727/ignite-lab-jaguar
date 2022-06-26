@@ -1,4 +1,3 @@
-import { gql, useMutation } from "@apollo/client";
 import { useState, FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import { Logo } from "../components/Logo";
@@ -26,8 +25,9 @@ export function Subscribe() {
   }
 
   return (
-    <div className="min-h-screen bg-blur bg-cover bg-no-repeat flex flex-col items-center">
-      <div className="w-full max-w-[1100px] flex items-center justify-between mt-20 mx-auto">
+    <div className="min-h-screen bg-blur bg-cover bg-no-repeat flex flex-col items-center max-h-[100vh] overflow-hidden relative">
+      <div className="bg-reactIcon absolute bg-no-repeat top-2.5 left-0 bottom-0 right-0 bg-top opacity-100"></div>
+      <div className="w-full max-w-[1100px] flex items-center justify-between mt-20 mx-auto z-10">
         <div className="max-w-[640px]">
            <Logo />
 
@@ -66,7 +66,8 @@ export function Subscribe() {
         </div>
       </div>
       
-      <img src="/src/assets/code-mockup.png" className="mt-10" alt="" />
+      <div className="mt-10 mx-auto bg-mockup bg-cover bg-no-repeat w-[1100px] h-[588px] items-center z-10 "/>
+      
     </div>
   )
 }
