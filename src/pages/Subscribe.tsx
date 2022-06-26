@@ -1,28 +1,46 @@
-import { useState, FormEvent } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, FormEvent, useEffect } from "react";
+import { useNavigate, useHref } from "react-router-dom";
 import { Logo } from "../components/Logo";
 import { useCreateSubscriberMutation } from "../graphql/generated";
+import { GitHubIcon } from "../components/GithubIcon"
 
 export function Subscribe() {
   const navigate = useNavigate()
-  
+  const href = useHref(`https://github.com/login/oauth/authorize?client_id=${import.meta.env.VITE_API_GH_ACCESS_TOKEN}`)
+  const [authorizeLink, setAutorizeLink] = useState('')
+
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
 
   const [createSubscriber, { loading }] = useCreateSubscriberMutation()
-  
+
   async function handleSubscribe(event: FormEvent) {
     event.preventDefault()
+    try {
+      const response = await createSubscriber({
+        variables: {
+          name,
+          email,
+        }
+      })
+  
+      navigate('/event',{state: response})
+      
+    } catch (err) {
+      console.error(err)
+      return
+    }
 
-    await createSubscriber({
-      variables: {
-        name,
-        email,
-      }
-    })
-
-    navigate('/event')
   }
+
+  function handleGithubLogin() {
+    window.location.replace(authorizeLink)
+  }
+
+  useEffect(() => {
+    setAutorizeLink(`https://github.com/login/oauth/authorize?client_id=${import.meta.env.VITE_API_GH_ACCESS_TOKEN}`)
+  })
+
 
   return (
     <div className="min-h-screen bg-blur bg-cover bg-no-repeat flex flex-col items-center max-h-[100vh] overflow-hidden relative">
@@ -60,9 +78,15 @@ export function Subscribe() {
             <button type="submit"
               disabled={loading}
               className="mt-4 bg-green-500 uppercase py-4 rounded font-bold text-sm hover:bg-green-700 transition-color disabled:opacity-50">
-              Garantir minha vaga!
+              <span className="pt-1 flex items-center justify-center">Garantir minha vaga!</span> 
             </button>
           </form>
+
+          <button type="button" onClick={handleGithubLogin}
+          disabled={loading}
+          className="mt-4 bg-gray-100 uppercase w-full px-8 py-2 rounded font-bold text-sm hover:bg-gray-300 transition-color disabled:opacity-50 text-gray-900 flex items-center justify-center">
+            <GitHubIcon /> <span className="ml-2 block center pt-[2px]"> entrar com github</span>
+          </button>
         </div>
       </div>
       
