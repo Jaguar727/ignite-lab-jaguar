@@ -6,7 +6,7 @@ import { GitHubIcon } from "../components/GithubIcon"
 
 export function Subscribe() {
   const navigate = useNavigate()
-  const href = useHref(`https://github.com/login/oauth/authorize?client_id=${import.meta.env.VITE_API_GH_ACCESS_TOKEN}`)
+  const href = useHref(`https://github.com/login/oauth/authorize?client_id=${import.meta.env.VITE_API_GH_ACCESS_TOKEN}&redirect_uri=${import.meta.env.VITE_API_GH_REDIRECT_LINK}`) 
   const [authorizeLink, setAutorizeLink] = useState('')
 
   const [name, setName] = useState('');
@@ -38,7 +38,7 @@ export function Subscribe() {
   }
 
   useEffect(() => {
-    setAutorizeLink(`https://github.com/login/oauth/authorize?client_id=${import.meta.env.VITE_API_GH_ACCESS_TOKEN}`)
+    setAutorizeLink(`https://github.com/login/oauth/authorize?client_id=${import.meta.env.VITE_API_GH_ACCESS_TOKEN}&redirect_uri=${import.meta.env.VITE_API_GH_REDIRECT_LINK}`)
   })
 
 
