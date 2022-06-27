@@ -7,7 +7,7 @@ import { GitHubIcon } from "../components/GithubIcon"
 export function Subscribe() {
   const navigate = useNavigate()
   const href = useHref(`https://github.com/login/oauth/authorize?client_id=${import.meta.env.VITE_API_GH_ACCESS_TOKEN}&redirect_uri=${import.meta.env.VITE_API_GH_REDIRECT_LINK}`) 
-  const [authorizeLink, setAutorizeLink] = useState('')
+  const [authorizeLink, setAuthorizeLink] = useState('')
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -34,11 +34,11 @@ export function Subscribe() {
   }
 
   function handleGithubLogin() {
-    window.location.replace(authorizeLink)
+    window.location.assign(authorizeLink)
   }
 
   useEffect(() => {
-    setAutorizeLink(`https://github.com/login/oauth/authorize?client_id=${import.meta.env.VITE_API_GH_ACCESS_TOKEN}&redirect_uri=${import.meta.env.VITE_API_GH_REDIRECT_LINK}`)
+    setAuthorizeLink(`https://github.com/login/oauth/authorize?client_id=${import.meta.env.VITE_API_GH_ACCESS_TOKEN}&redirect_uri=${import.meta.env.VITE_API_GH_REDIRECT_LINK}`)
   })
 
 
