@@ -34,7 +34,7 @@ export function Subscribe() {
   }
 
   function handleGithubLogin() {
-    window.location.assign(authorizeLink)
+    window.location.replace(authorizeLink)
   }
 
   useEffect(() => {
